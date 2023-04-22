@@ -1,5 +1,5 @@
 ---
-title: "¿Quién es Emiliano Bobadilla?"
+title: "¿Quién es Emiliano?"
 permalink: "/about/"
 layout: page
 ---
