@@ -66,6 +66,18 @@ function foo () {
 }
 ```
 
+# ETL {#etl}
+:::
+
+::: {.cell .code id="4dKsUgTk2dkC"}
+``` python
+import pandas as pd
+import numpy as np
+pd.set_option("display.max_columns", None)
+pd.set_option('display.max_colwidth', None)
+```
+:::
+
 ## Lists
 
 ### Unordered
