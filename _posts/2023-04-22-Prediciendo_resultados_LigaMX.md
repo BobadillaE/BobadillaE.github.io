@@ -1,5 +1,5 @@
 ---
-title: "Prediciendo resultados en la Liga MX"
+title: "Prediciendo resultados de fútbol"
 layout: page
 jupyter:
   colab:
@@ -11,6 +11,8 @@ jupyter:
   nbformat: 4
   nbformat_minor: 0
 ---
+
+En el siguiente notebook se hace un análisis simple de un dataset oficial con las estadísticas oficiales de los resultados de la liga de fútbol mexicano en los últimos años. El objetivo es obtener un modelo predictivo muy simple que nos indique si un equipo ganará o no un partido en base a sus estadisticas anteriores.
 
 ``` python
 import pandas as pd
