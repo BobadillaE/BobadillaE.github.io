@@ -13,11 +13,9 @@ jupyter:
   nbformat_minor: 0
 ---
 
-::: {.cell .markdown id="ksXWejKPTVUL"}
 # Scrapping los standings de los últimos años de la Liga MX
-:::
 
-::: {.cell .markdown id="ypVTEQV9Shaq"}
+
 En el siguiente ipny se automatiza el scrapping de datos de la liga mx
 por equipos y por temporadas. Se pueden obtener tantos años como
 quieras.
@@ -26,87 +24,66 @@ Funciona de la siguiente manera: en la primera tabla se accede a cada
 uno de los links de cada uno de los equipos lo que nos lleva a la
 segunda tabla (por cada equipo). Esta es la tabla que utilizamos y
 además le agregamos un extra de información que es la tabla de
-\"Tiros\". Si se quiere se pueden agregar todavía más variables aún para
+"Tiros". Si se quiere se pueden agregar todavía más variables aún para
 mejorar el dataset
-:::
 
-::: {.cell .markdown id="9W3mXWVYUczM"}
+
+
 Clacificación de todos los equipos a lo largo de un año especifico
-![FullST_beforSC.png](vertopal_3dfee39d9dbf4ac2837d0d45e4f4ce1f/e938f3f80de84643a933adc943276b51c7c2019e.png)
-:::
+![FullST_beforSC.png](https://raw.githubusercontent.com/BobadillaE/BobadillaE.github.io/master/archivos/FullST_beforSC.png)
 
-::: {.cell .markdown id="8aLKw1i6U8Od"}
+
+
 Ejemplo de la información por equipo
-![ej_Tigres.png](vertopal_3dfee39d9dbf4ac2837d0d45e4f4ce1f/9165d160505de33067c04630b0ffe35be45be9b1.png)
-:::
+![ej_Tigres.png](https://raw.githubusercontent.com/BobadillaE/BobadillaE.github.io/master/archivos/ej_Tigres.png)
 
-::: {.cell .markdown id="8NsmzVTBSf8y"}
+
+
 
 ------------------------------------------------------------------------
-:::
 
-::: {.cell .code id="YUOAtoKBWAdy"}
 ``` python
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 ```
-:::
 
-::: {.cell .markdown id="Rgx0huIsNAhN"}
 Aquí ponemos el link del año del cual queremos obtener el dataset, si
 son varios años hacer el proceso varias veces con los distintos links de
 cada año y al final concatenar todos
-:::
 
-::: {.cell .code id="P6KCpS7EWBqb"}
 ``` python
 clasificacion_url ="https://fbref.com/es/comps/31/2020-2021/Estadisticas-2020-2021-Liga-MX"
 ```
-:::
 
-::: {.cell .code id="rFtocNDlWbYa"}
 ``` python
 data= requests.get(clasificacion_url)
 ```
-:::
 
-::: {.cell .code id="ESVkY7kPXPRE"}
 ``` python
 soup = BeautifulSoup(data.text)
 ```
-:::
 
-::: {.cell .markdown id="QbhfraP-XeT4"}
 Crear nuestro selector para tomar los URLs de la clasificación original
 y acceder a cada uno de los equipos
-:::
 
-::: {.cell .code id="PyGpNDrIXY5K"}
 ``` python
 clasificacion= soup.select('table.stats_table')[0]
 ```
-:::
 
-::: {.cell .code id="qcPiT9U8YuTN"}
 ``` python
 links = clasificacion.find_all('a')
 ```
-:::
 
-::: {.cell .code id="Z_oyNh4SY1l7"}
 ``` python
 links = [l.get("href") for l in links]
 ```
-:::
 
-::: {.cell .code id="xcjRm3-jfFYM"}
 ``` python
 links= [l for l in links if '/equipos/' in l]
 ```
 :::
 
-::: {.cell .code colab="{\"base_uri\":\"https://localhost:8080/\"}" id="G6o5qhdIfWO3" outputId="08424254-d99b-44f5-f7a7-555936204f5c"}
 ``` python
 links
 ```
@@ -133,22 +110,20 @@ links
 :::
 :::
 
-::: {.cell .markdown id="J2DyRuvfNo1e"}
-Completamos los links
-:::
 
-::: {.cell .code id="w-nK1bA1g8Qd"}
+Completamos los links
+
+
+
 ``` python
 team_links= [f"https://fbref.com{l}" for l in links]
 ```
-:::
 
-::: {.cell .code colab="{\"base_uri\":\"https://localhost:8080/\"}" id="BcdEm-bdhYfz" outputId="3a1021fe-a53f-4794-e73a-6d97d0a3d343"}
+
 ``` python
 team_links
 ```
 
-::: {.output .execute_result execution_count="92"}
     ['https://fbref.com/es/equipos/632f1838/2020-2021/Estadisticas-de-Cruz-Azul',
      'https://fbref.com/es/equipos/18d3c3a3/2020-2021/Estadisticas-de-America',
      'https://fbref.com/es/equipos/fd7dad55/2020-2021/Estadisticas-de-Leon',
@@ -167,20 +142,14 @@ team_links
      'https://fbref.com/es/equipos/c3352ce7/2020-2021/Estadisticas-de-Queretaro',
      'https://fbref.com/es/equipos/29bff345/2020-2021/Estadisticas-de-FC-Juarez',
      'https://fbref.com/es/equipos/5d274ee4/2020-2021/Estadisticas-de-Atletico']
-:::
-:::
 
-::: {.cell .markdown id="npEfw-csVyUe"}
+
 
 ------------------------------------------------------------------------
-:::
 
-::: {.cell .markdown id="0-vpDYjJVlaE"}
 Agarraremos el url de cada equipo de la liga para tomar toda la
 información que necesitamos de sus partidos
-:::
 
-::: {.cell .code id="Mk5UbLdQi2bC"}
 ``` python
 t1= team_links[0]
 t2= team_links[1]
@@ -201,9 +170,7 @@ t16= team_links[15]
 t17= team_links[16]
 t18= team_links[17]
 ```
-:::
 
-::: {.cell .code id="4xKopQq_i7-I"}
 ``` python
 data1= requests.get(t1)
 data2= requests.get(t2)
@@ -224,14 +191,10 @@ data16= requests.get(t16)
 data17= requests.get(t17)
 data18= requests.get(t18)
 ```
-:::
 
-::: {.cell .markdown id="ZdtqvXLANzYb"}
 Creamos un dataset por equipo con la información de su respectiva
 temporada
-:::
 
-::: {.cell .code id="0j5upsztjHaN"}
 ``` python
 matches1= pd.read_html(data1.text,match= "Marcadores y partidos ")[0]
 matches2= pd.read_html(data2.text,match= "Marcadores y partidos ")[0]
@@ -252,9 +215,7 @@ matches16= pd.read_html(data16.text,match= "Marcadores y partidos ")[0]
 matches17= pd.read_html(data17.text,match= "Marcadores y partidos ")[0]
 matches18= pd.read_html(data18.text,match= "Marcadores y partidos ")[0]
 ```
-:::
 
-::: {.cell .code id="Fc8UL35BJJJ-"}
 ``` python
 name1 = team_links[0].split("/")[-1].replace("Estadisticas-de-", "").replace("-"," ")
 name2 = team_links[1].split("/")[-1].replace("Estadisticas-de-", "").replace("-"," ")
@@ -275,9 +236,7 @@ name16 = team_links[15].split("/")[-1].replace("Estadisticas-de-", "").replace("
 name17 = team_links[16].split("/")[-1].replace("Estadisticas-de-", "").replace("-"," ")
 name18 = team_links[17].split("/")[-1].replace("Estadisticas-de-", "").replace("-"," ")
 ```
-:::
 
-::: {.cell .code id="AFo385RPKA8Z"}
 ``` python
 matches1["Equipo"]= name1
 matches2["Equipo"]= name2
@@ -298,14 +257,11 @@ matches16["Equipo"]= name16
 matches17["Equipo"]= name17
 matches18["Equipo"]= name18
 ```
-:::
-
-::: {.cell .code colab="{\"base_uri\":\"https://localhost:8080/\",\"height\":354}" id="PZ086kTbKNK9" outputId="8a617e34-55fd-4579-e391-a2a2a1e68cd3"}
 ``` python
 matches3.head()
 ```
 
-::: {.output .execute_result execution_count="98"}
+
 ```{=html}
 
   <div id="df-2d376e42-78ca-47a0-8d72-98aadbf62188">
@@ -546,10 +502,7 @@ matches3.head()
   </div>
   
 ```
-:::
-:::
 
-::: {.cell .markdown id="LVnsRvlTkX63"}
 Aquí ya convertimos el html en una base de datos en pandas por equipo.
 
 Ahora nos damos cuenta que quizás necesitamos un poco más de variables
@@ -558,13 +511,10 @@ partido para tener más variables por analizar. Para esto hacemos un
 procedimiento análogo al que ya realizamos, vamos a filtrar los links y
 agarrar la tabla especifica que necesitamos para concatenarla a nuestro
 dataset y tener uno más robusto
-:::
 
-::: {.cell .markdown id="Ok4cb84El0aO"}
-![tiros.png](vertopal_3dfee39d9dbf4ac2837d0d45e4f4ce1f/8e515964a3b4f7b47a32aeb65d9a6d5829c25fab.png)
-:::
+![tiros.png](https://raw.githubusercontent.com/BobadillaE/BobadillaE.github.io/master/archivos/tiros.png)
 
-::: {.cell .code id="nIbW2YBoDViY"}
+
 ``` python
 soup1= BeautifulSoup(data1.text)
 links1 = soup1.find_all('a')
@@ -693,9 +643,7 @@ links1 = [l for l in links1 if l and 'all_comps/shooting/' in l]
 data18 = requests.get(f"https://fbref.com{links1[0]}")
 tiros18 = pd.read_html(data18.text, match= "Tiros")[0]
 ```
-:::
 
-::: {.cell .code id="bF4kIZLqls6Q"}
 ``` python
 tiros1.columns= tiros1.columns.droplevel()
 tiros2.columns= tiros2.columns.droplevel()
@@ -716,15 +664,11 @@ tiros16.columns= tiros16.columns.droplevel()
 tiros17.columns= tiros17.columns.droplevel()
 tiros18.columns= tiros18.columns.droplevel()
 ```
-:::
 
-::: {.cell .markdown id="fc4ot48ZOF4v"}
 Finalmente mergeamos uno a uno los datasets de cada equipo. Mergeamos el
 dataset original con información limitada + la información de tiros por
 partido a lo largo de la temporada
-:::
 
-::: {.cell .code id="kKVCZvQ-G7gU"}
 ``` python
 team_data1 = matches1.merge(tiros1[["Fecha","Dis", "DaP", "Dist", "FK", "TP", "TPint"]], on="Fecha")
 team_data2 = matches2.merge(tiros2[["Fecha","Dis", "DaP", "Dist", "FK", "TP", "TPint"]], on="Fecha")
@@ -745,19 +689,13 @@ team_data16 = matches16.merge(tiros16[["Fecha","Dis", "DaP", "Dist", "FK", "TP",
 team_data17 = matches17.merge(tiros17[["Fecha","Dis", "DaP", "Dist", "FK", "TP", "TPint"]], on="Fecha")
 team_data18 = matches18.merge(tiros18[["Fecha","Dis", "DaP", "Dist", "FK", "TP", "TPint"]], on="Fecha")
 ```
-:::
 
-::: {.cell .markdown id="QwN59V8wOV7r"}
 Aquí hacemos un append de todos nuestros datasets ya mergeados
-:::
 
-::: {.cell .code id="f8p_ETqIIlCc"}
 ``` python
 partidos_completo = []
 ```
-:::
 
-::: {.cell .code id="dPDEF-YILO_D"}
 ``` python
 partidos_completo.append(team_data1)
 partidos_completo.append(team_data2)
@@ -778,38 +716,27 @@ partidos_completo.append(team_data16)
 partidos_completo.append(team_data17)
 partidos_completo.append(team_data18)
 ```
-:::
 
-::: {.cell .code id="mWDIWULTOiuY"}
 ``` python
 datasetConcat1 = pd.concat(partidos_completo)
 ```
-:::
 
-::: {.cell .markdown id="PJIWsY1WRdgz"}
 Si se hace scrapping de varios años, en este paso poner los distintos
 datasets que se van obteniendo en \"frames\" para no sobreescribir sobre
 el dataset anterior y poder concatenarlos más adelante
-:::
 
-::: {.cell .code id="1ATMOzxnQ8mF"}
 ``` python
 frames = [datasetConcat1]
 ```
-:::
 
-::: {.cell .code id="7UkBkeoBQRwn"}
 ``` python
 LigaMX_ds = pd.concat(frames)
 ```
-:::
 
-::: {.cell .code colab="{\"base_uri\":\"https://localhost:8080/\",\"height\":658}" id="uspQ-XhMQkEb" outputId="e29b06fd-423d-46e5-ccd9-702eb3c1dce8"}
 ``` python
 LigaMX_ds
 ```
 
-::: {.output .execute_result execution_count="115"}
 ```{=html}
 
   <div id="df-07fa1457-2e63-43fe-841b-9b24e56ae4d8">
@@ -1201,14 +1128,9 @@ LigaMX_ds
   </div>
   
 ```
-:::
-:::
 
-::: {.cell .markdown id="p0C5cijzUNLC"}
 Código para guardar tu dataframe final
-:::
 
-::: {.cell .code colab="{\"base_uri\":\"https://localhost:8080/\",\"height\":17}" id="XYVZqb-6UBEJ" outputId="5e7eae75-63d3-47ef-acfe-8d0c08706a20"}
 ``` python
 from google.colab import files
 LigaMX_ds.to_csv('output.csv', encoding = 'utf-8-sig') 
