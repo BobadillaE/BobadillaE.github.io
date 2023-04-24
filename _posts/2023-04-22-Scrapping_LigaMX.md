@@ -15,7 +15,7 @@ jupyter:
 # Scrapping los standings de los últimos años de la Liga MX
 
 
-En el siguiente ipny se automatiza el scrapping de datos de la liga mx
+En el siguiente notebook se automatiza el scrapping de datos de la liga mx
 por equipos y por temporadas. Se pueden obtener tantos años como
 quieras.
 
