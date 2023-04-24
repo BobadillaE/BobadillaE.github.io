@@ -1,7 +1,6 @@
 ---
 title: "Scrapping de la Liga MX"
 layout: page
-
 jupyter:
   colab:
   kernelspec:
