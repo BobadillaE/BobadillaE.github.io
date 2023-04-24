@@ -18,10 +18,13 @@ categories: media
 El proyecto se realizó en dos fases: investigación/recaudación de datos e implementación de visualizaciones.
 ### Investigación/ recaudación de datos
 Los datasets utilizados fueron tomados de la Encuesta Nacional de Ingresos y Gastos de los Hogares (ENIGH) realizada por el Instituto Nacional de Estadística y Geografía (INEGI), en su más reciente edición llevada a cabo del 21 de agosto al 28 de noviembre de 2020. El objetivo de la ENIGH es:  “proporcionar un panorama estadístico del comportamiento de los ingresos y gastos de los hogares en cuanto a su monto, procedencia y distribución; adicionalmente, ofrece información sobre las características ocupacionales, sociodemográficas y acceso a alimentación de los integrantes del hogar, así como las características de la infraestructura de la vivienda y el equipamiento del hogar”. 
+
+---
 Se tomaron tres tabulados de la encuesta para construir el dataset principal con el que se implementó el proyecto:
 * Tabulados básicos
 * Tabulados por entidad federativa
 * Tabulados de hogares y viviendas
+---
 El dataset principal cuenta con información de las 32 entidades federativas que componen México con el fin de realizar el análisis deseado a partir de la distribución geográfica del país. De cada entidad federativa se tiene:
 * Población
 * Pib per capita
@@ -46,6 +49,7 @@ Una vez obtenidos y ordenados los datos se llevó a cabo la implementación de v
 * Gridextra
 * Shiny
 * Shinydashboard
+---
 Se implementation distintos tipos de gráficos: bar charts, leaflets, choropleths y redes multicapas. Finalmente para la presentación de las visualizaciones obtenidas se hizo uso de la herramienta Shiny. Con Shiny se implementó el dashboard que contiene la presentación final del trabajo realizado, y cuenta con interactividad para manipular algunas visualizaciones.
 
 ## Análisis visual
@@ -71,6 +75,7 @@ Se implementation distintos tipos de gráficos: bar charts, leaflets, choropleth
 * Al existir esta deficiencia de datos específicos para lograr una mejor distribución de los programas sociales en el país, a mediano plazo se buscaría la recaudación precisamente de esta información para construir una red vasta de datos que permita atacar inmediatamente los focos que se van presentando en el país.
 Finalmente, a largo plazo se busca que el proyecto propuesto a partir de la ciencia de datos logre tener un impacto en la política pública, tanto a nivel local como federal, proponiendo a partir de la recaudación de los datos la creación de cada vez más programas sociales que atiendan las necesidades de la población y eliminando aquellos que demuestran ser ineficientes.
 
+---
 Link del repositorio con el código y datasets completos: https://github.com/BobadillaE/Pobreza_Mexico_RStudio
 
 ![image1](https://raw.githubusercontent.com/BobadillaE/BobadillaE.github.io/master/archivos/pobreza1.png)
